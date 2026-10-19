@@ -232,12 +232,11 @@ export const content: Content = {
     title: "Hi, I'm Iresha",
     body: [
       "I'm a full-stack software engineer with three years of experience building websites and apps for clients in Sri Lanka, Canada and the UAE.",
-      "I also run Celori, a Pinterest page about celebration ideas that reaches around 157,000 people a month. Growing it taught me what makes people stop, click and book.",
-      "Now I use both skills to help local businesses get the customers they deserve.",
+      "I'm also completing a Certificate in Digital Marketing. Now I combine both to help local businesses get the customers they deserve.",
     ],
     facts: [
       { value: "3 years", label: "building websites and apps" },
-      { value: "157k", label: "monthly views on my own Pinterest page" },
+      { value: "3 countries", label: "clients in Sri Lanka, Canada and the UAE" },
       { value: "2 languages", label: "I work in Sinhala and English" },
     ],
   },
