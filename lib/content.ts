@@ -13,6 +13,10 @@ export type Content = {
   nav: { services: string; work: string; packages: string; about: string; faq: string; cta: string };
   hero: {
     title: string;
+    findOn: string;
+    channels: string[];
+    notes: { text: string; sub: string; tone: "coral" | "mint" | "sky" | "sun" }[];
+    marquee: string[];
     lead: string;
     cta: string;
     ctaMsg: string;
@@ -93,7 +97,26 @@ export const content: Content = {
     cta: "Free audit",
   },
   hero: {
-    title: "People are already searching for your business. Let them find it.",
+    title: "People are already searching for your business.",
+    findOn: "Let them find you on",
+    channels: ["Google Maps", "Facebook", "Instagram", "WhatsApp", "TikTok"],
+    notes: [
+      { text: "12 new reviews", sub: "this month", tone: "sun" },
+      { text: "New booking", sub: "via WhatsApp", tone: "mint" },
+      { text: "1.4k people reached", sub: "on Facebook", tone: "coral" },
+      { text: "Found on Google Maps", sub: "2 km away", tone: "sky" },
+    ],
+    marquee: [
+      "Google Maps",
+      "Facebook posts",
+      "Instagram reels",
+      "Websites",
+      "SEO",
+      "Online menus",
+      "Facebook ads",
+      "WhatsApp bookings",
+      "Monthly reports",
+    ],
     lead:
       "I help restaurants, salons and local shops in Sri Lanka show up on Google Maps, keep their Facebook and Instagram alive, and turn visitors into bookings.",
     cta: "Get a free audit on WhatsApp",

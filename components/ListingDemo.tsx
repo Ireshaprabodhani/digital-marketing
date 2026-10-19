@@ -34,7 +34,7 @@ export default function ListingDemo({ t }: Props) {
       <div
         role="radiogroup"
         aria-label={t.caption}
-        className="mb-3 inline-flex rounded-full bg-white/10 p-1 text-sm font-semibold"
+        className="mb-3 inline-flex rounded-full bg-ink/10 p-1 text-sm font-semibold"
       >
         {[
           { label: t.before, value: false },
@@ -47,7 +47,7 @@ export default function ListingDemo({ t }: Props) {
             aria-checked={after === opt.value}
             onClick={() => choose(opt.value)}
             className={`rounded-full px-4 py-1.5 transition-colors duration-300 ${
-              after === opt.value ? "bg-white text-sapphire-deep" : "text-white/80 hover:text-white"
+              after === opt.value ? "bg-ink text-white" : "text-ink/70 hover:text-ink"
             }`}
           >
             {opt.label}
@@ -56,14 +56,14 @@ export default function ListingDemo({ t }: Props) {
       </div>
 
       <div
-        className={`overflow-hidden rounded-[22px] bg-white text-ink shadow-[0_30px_60px_-20px_rgba(10,16,60,0.55)] ring-4 transition-[box-shadow] duration-700 ${
-          after ? "ring-padpa/70" : "ring-transparent"
+        className={`overflow-hidden rounded-[22px] bg-white text-ink shadow-[0_30px_60px_-20px_rgba(27,21,48,0.45)] ring-4 transition-[box-shadow] duration-700 ${
+          after ? "ring-grape" : "ring-transparent"
         }`}
       >
         {/* Photo strip */}
         <div className="relative h-36">
           <div
-            className={`absolute inset-0 flex items-center justify-center gap-2 bg-mist text-sm text-muted transition-opacity duration-500 ${
+            className={`absolute inset-0 flex items-center justify-center gap-2 bg-lilac text-sm text-muted transition-opacity duration-500 ${
               after ? "opacity-0" : "opacity-100"
             }`}
           >
@@ -114,14 +114,14 @@ export default function ListingDemo({ t }: Props) {
             }`}
           >
             <div className="overflow-hidden">
-              <p className="rounded-xl bg-padpa-soft px-3 py-2.5 text-sm font-medium text-[#8a2a3c]">
+              <p className="rounded-xl bg-coral-soft px-3 py-2.5 text-sm font-medium text-[#a3233f]">
                 {t.post}
               </p>
             </div>
           </div>
         </div>
       </div>
-      <figcaption className="mt-3 text-sm text-white/70">{t.caption}</figcaption>
+      <figcaption className="mt-3 text-sm text-ink/70">{t.caption}</figcaption>
     </figure>
   );
 }
@@ -130,7 +130,7 @@ function Row({ ok, okText, badText }: { ok: boolean; okText: string; badText: st
   return (
     <p
       className={`flex items-center gap-2 text-sm font-medium transition-colors duration-500 ${
-        ok ? "text-leaf" : "text-amber"
+        ok ? "text-mint-deep" : "text-amber"
       }`}
     >
       {ok ? (
@@ -150,10 +150,10 @@ function Row({ ok, okText, badText }: { ok: boolean; okText: string; badText: st
 
 function Action({ label, primary, whatsapp }: { label: string; primary?: boolean; whatsapp?: boolean }) {
   const style = primary
-    ? "bg-sapphire text-white border-sapphire"
+    ? "bg-grape text-white border-grape"
     : whatsapp
-      ? "border-leaf/40 text-leaf"
-      : "border-line text-sapphire";
+      ? "border-mint-deep/40 text-mint-deep"
+      : "border-line text-grape";
   return <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${style}`}>{label}</span>;
 }
 
