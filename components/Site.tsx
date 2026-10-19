@@ -304,22 +304,8 @@ export default function Site() {
 
         {/* About */}
         <section id="about" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-          <div className="grid items-center gap-12 md:grid-cols-[auto_1fr] md:gap-16">
-            {/* Replace with a real photo: put it in /public/iresha.jpg and swap the initials for an <img>. */}
-            <div className="reveal relative mx-auto h-48 w-48 md:h-64 md:w-64">
-              <div aria-hidden className="absolute -inset-3 rounded-full border-[3px] border-dashed border-coral" />
-              <div aria-hidden className="absolute -right-2 top-2 h-10 w-10 rounded-full bg-sun" />
-              <div aria-hidden className="absolute -left-1 bottom-4 h-7 w-7 rotate-12 rounded-lg bg-sky" />
-              <div
-                aria-hidden
-                className="flex h-full w-full items-center justify-center rounded-full bg-grape text-6xl font-extrabold text-white md:text-7xl"
-              >
-                {site.ownerName
-                  .split(" ")
-                  .map((w) => w[0])
-                  .join("")}
-              </div>
-            </div>
+          <div className="grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+            <TeamVisual />
             <div>
               <h2 className="reveal text-3xl font-extrabold tracking-tight sm:text-5xl">{t.about.title}</h2>
               <div className="reveal mt-6 max-w-[62ch] space-y-4 text-lg text-muted">
@@ -327,18 +313,26 @@ export default function Site() {
                   <p key={p}>{p}</p>
                 ))}
               </div>
-              <dl className="mt-10 grid max-w-xl gap-4 sm:grid-cols-2">
+              <dl className="mt-10 grid gap-3 sm:grid-cols-3">
                 {t.about.facts.map((f, i) => (
                   <div
                     key={f.label}
-                    className={`reveal flex flex-col rounded-2xl p-5 ${i % 2 ? "bg-mint-soft" : "bg-sun-soft"}`}
+                    className={`reveal flex flex-col rounded-2xl p-5 ${["bg-sun-soft", "bg-coral-soft", "bg-mint-soft"][i % 3]}`}
                     style={{ ["--delay" as string]: `${i * 120}ms` }}
                   >
-                    <dt className="text-sm text-ink/70">{f.label}</dt>
+                    <dt className="mt-1 text-sm text-ink/70">{f.label}</dt>
                     <dd className="order-first text-3xl font-extrabold tracking-tight">{f.value}</dd>
                   </div>
                 ))}
               </dl>
+              <a
+                href={t.work.projects[0].url}
+                target="_blank"
+                rel="noopener"
+                className="reveal mt-8 inline-flex items-center gap-2 font-bold text-grape underline decoration-2 underline-offset-4 hover:text-grape-deep"
+              >
+                {t.about.link}
+              </a>
             </div>
           </div>
         </section>
@@ -592,6 +586,41 @@ function ProcessSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+// About visual: the team's three skills orbiting the brand mark.
+function TeamVisual() {
+  const skills = [
+    { label: "Websites", sub: "Design and build", tone: "bg-sky text-ink", pos: "left-0 top-[14%]", delay: "0s" },
+    { label: "Social media", sub: "Posts, reels and ads", tone: "bg-coral text-white", pos: "right-0 top-[2%]", delay: "1.2s" },
+    { label: "SEO", sub: "Google and Maps", tone: "bg-mint text-ink", pos: "bottom-[4%] right-[6%]", delay: "2.4s" },
+  ];
+  return (
+    <div className="reveal relative mx-auto aspect-square w-full max-w-[420px]">
+      <div aria-hidden className="absolute inset-[12%] rounded-full border-2 border-dashed border-grape-soft" />
+      <div aria-hidden className="absolute inset-[26%] rounded-full bg-lilac" />
+      <div className="absolute inset-[34%] flex flex-col items-center justify-center rounded-[32px] bg-grape text-center text-white shadow-[0_30px_60px_-24px_rgba(74,31,214,0.7)]">
+        <svg aria-hidden width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffd23f" strokeWidth="2.6" strokeLinecap="round">
+          <path d="M4 18 10 11l4 4 6-8" />
+        </svg>
+        <span className="mt-1 px-2 text-xs font-bold leading-tight sm:text-sm">{site.brandName}</span>
+      </div>
+      {skills.map((s) => (
+        <div key={s.label} className={`absolute ${s.pos}`}>
+          <div
+            className="animate-float flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-[0_16px_34px_-16px_rgba(27,21,48,0.45)] ring-1 ring-line"
+            style={{ animationDelay: s.delay }}
+          >
+            <span className={`h-3 w-3 rounded-full ${s.tone}`} />
+            <span className="leading-tight">
+              <span className="block font-bold">{s.label}</span>
+              <span className="block text-xs text-muted">{s.sub}</span>
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 

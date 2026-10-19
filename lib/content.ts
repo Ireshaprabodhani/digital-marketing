@@ -67,6 +67,7 @@ export type Content = {
     title: string;
     body: string[];
     facts: { value: string; label: string }[];
+    link: string;
   };
   work: {
     title: string;
@@ -124,9 +125,9 @@ export const content: Content = {
       ],
     },
     lead:
-      "I help restaurants, salons and local shops in Sri Lanka show up on Google Maps, keep their Facebook and Instagram alive, and turn visitors into bookings.",
+      "We help restaurants, salons and local shops in Sri Lanka show up on Google Maps, keep their Facebook and Instagram alive, and turn visitors into bookings.",
     cta: "Get a free audit on WhatsApp",
-    ctaMsg: "Hi Iresha, I'd like a free audit for my business.",
+    ctaMsg: "Hi, I'd like a free audit for my business.",
     secondary: "See packages",
     reassure: "Free report in Sinhala or English. No obligation.",
   },
@@ -167,12 +168,12 @@ export const content: Content = {
       {
         title: "Free audit",
         body:
-          "I check your Google, Facebook and Instagram, then send you a one-page report on WhatsApp showing what's stopping new customers.",
+          "We check your Google, Facebook and Instagram, then send you a one-page report on WhatsApp showing what's stopping new customers.",
       },
       {
         title: "Free first fix",
         body:
-          "I complete your Google Maps profile with hours, photos, menu and a WhatsApp button, at no cost, so you can see the difference.",
+          "We complete your Google Maps profile with hours, photos, menu and a WhatsApp button, at no cost, so you can see the difference.",
       },
       {
         title: "Monthly plan, only if you want it",
@@ -182,7 +183,7 @@ export const content: Content = {
     ],
   },
   services: {
-    title: "What I can do for you",
+    title: "What we can do for you",
     lead: "Pick one service or combine them. Everything is explained in plain Sinhala or English.",
     items: [
       {
@@ -200,7 +201,7 @@ export const content: Content = {
       {
         title: "Websites and online menus",
         body:
-          "A fast website with your menu, offers, location and booking. I'm a software engineer, so it's built properly.",
+          "A fast website with your menu, offers, location and booking, built properly by software engineers.",
       },
       {
         title: "Facebook and Instagram ads",
@@ -217,7 +218,7 @@ export const content: Content = {
     title: "Monthly packages",
     lead: "Prices are per month. Your first three months are agreed in advance, then it's month to month.",
     choose: "Ask about this package",
-    choiceMsg: (name) => `Hi Iresha, I'd like to know more about the ${name} package.`,
+    choiceMsg: (name) => `Hi, I'd like to know more about the ${name} package.`,
     popular: "Most chosen",
     list: [
       {
@@ -264,29 +265,32 @@ export const content: Content = {
       { label: "Domain and hosting", value: "about Rs. 12,000 a year" },
     ],
     adsNote:
-      "Ad money is paid by you directly to Facebook with your own card. It never passes through me, so you always see exactly what was spent.",
+      "Ad money is paid by you directly to Facebook with your own card. It never passes through us, so you always see exactly what was spent.",
   },
   about: {
-    title: "Hi, I'm Iresha",
+    title: "Who we are",
     body: [
-      "I'm a full-stack software engineer with three years of experience building websites and apps for clients in Sri Lanka, Canada and the UAE.",
-      "I'm also completing a Certificate in Digital Marketing. Now I combine both to help local businesses get the customers they deserve.",
+      "We're a small team of software engineers and digital marketers who help Sri Lankan businesses get found online and get more bookings.",
+      "We've spent the last three years building websites and web apps, and running social media, SEO and Pinterest for real brands. Having both skills in one team means your website, Google profile and social pages all work together.",
+      "Our own site, hellocelori.com, shows how we work: we designed and built it, set it up for Google search, and grew its Pinterest page to around 157,000 views a month.",
     ],
     facts: [
-      { value: "3 years", label: "building websites and apps" },
-      { value: "2 languages", label: "I work in Sinhala and English" },
+      { value: "3 years", label: "building websites and web apps" },
+      { value: "157k", label: "monthly Pinterest views for hellocelori.com" },
+      { value: "1 team", label: "for your website, social media and SEO" },
     ],
+    link: "See hellocelori.com",
   },
   work: {
-    title: "Websites I've built",
-    lead: "Every site I build is fast, works well on phones and is set up so Google can find it.",
+    title: "Websites we've built",
+    lead: "Every site we build is fast, works well on phones and is set up so Google can find it.",
     projects: [
       {
         name: "Celori",
         url: "https://hellocelori.com/",
         domain: "hellocelori.com",
         summary:
-          "My own website of ideas for weddings, birthdays, baby showers and anniversaries. I designed and built it from scratch, and I grow it through Pinterest.",
+          "Our own website of ideas for weddings, birthdays, baby showers and anniversaries. We designed and built it from scratch, and we grow it through Pinterest.",
         points: [
           "Idea pages grouped by occasion, plus a shop and free printables",
           "Page titles, descriptions and share previews set up for Google and social media",
@@ -306,11 +310,11 @@ export const content: Content = {
       },
       {
         q: "I already post on Facebook myself. Do I still need this?",
-        a: "Maybe not. The free audit will show what's working and what isn't. If you're doing well, I'll tell you.",
+        a: "Maybe not. The free audit will show what's working and what isn't. If you're doing well, we'll tell you.",
       },
       {
         q: "My business isn't in Colombo. Can you still help?",
-        a: "Yes. Most of the work is online, and I'm happy to visit businesses in Ratnapura and the Colombo area.",
+        a: "Yes. Most of the work is online, and we're happy to visit businesses in Ratnapura and the Colombo area.",
       },
       {
         q: "How do I know it's working?",
@@ -320,10 +324,10 @@ export const content: Content = {
   },
   contact: {
     title: "Find out what's stopping new customers",
-    body: "Send me your business name on WhatsApp. I'll send back a free one-page report within two days.",
+    body: "Send us your business name on WhatsApp. We'll send back a free one-page report within two days.",
     cta: "Get a free audit on WhatsApp",
-    ctaMsg: "Hi Iresha, I'd like a free audit. My business name is: ",
-    or: "Or contact me directly",
+    ctaMsg: "Hi, I'd like a free audit. My business name is: ",
+    or: "Or contact us directly",
     phone: "Phone",
     email: "Email",
   },

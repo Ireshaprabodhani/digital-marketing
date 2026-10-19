@@ -1,6 +1,6 @@
-# Iresha Digital – portfolio site
+# Digital Solutions – portfolio site
 
-A one-page site for my digital marketing and website services for Sri Lankan businesses. Every call to action opens WhatsApp with a ready-made message.
+A one-page site for our digital marketing and website services for Sri Lankan businesses. Every call to action opens WhatsApp with a ready-made message.
 
 Built with Next.js 15, TypeScript and Tailwind CSS 4, exported as a static site.
 
@@ -22,12 +22,6 @@ npm run dev        # http://localhost:3000
 | Colours and fonts | `app/globals.css` |
 
 **Before going live:** set your real WhatsApp number (`94` + number without the leading 0), phone, email and social links in `lib/site.ts`.
-
-**Adding your photo:** put it at `public/iresha.jpg`, then in `components/Site.tsx` replace the initials circle in the About section with:
-
-```tsx
-<img src="/iresha.jpg" alt="Iresha Prabodhani" className="h-40 w-40 rounded-full object-cover md:h-56 md:w-56" />
-```
 
 ## Deploy (free)
 

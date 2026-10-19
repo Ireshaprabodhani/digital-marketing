@@ -3,8 +3,7 @@
 // ─────────────────────────────────────────────────────────────
 
 export const site = {
-  brandName: "Iresha Digital",
-  ownerName: "Iresha Prabodhani",
+  brandName: "Digital Solutions",
 
   // WhatsApp number in international format, digits only (94 = Sri Lanka).
   // Example: 0771234567 → "94771234567"
