@@ -12,6 +12,7 @@ export default function Site() {
     { href: "#services", label: t.nav.services },
     { href: "#packages", label: t.nav.packages },
     { href: "#about", label: t.nav.about },
+    { href: "#work", label: t.nav.work },
     { href: "#faq", label: t.nav.faq },
   ];
 
@@ -259,7 +260,7 @@ export default function Site() {
                   <p key={p}>{p}</p>
                 ))}
               </div>
-              <dl className="mt-10 grid gap-6 sm:grid-cols-3">
+              <dl className="mt-10 grid max-w-xl gap-6 sm:grid-cols-2">
                 {t.about.facts.map((f) => (
                   <div key={f.label} className="flex flex-col border-t border-line pt-4">
                     <dt className="text-sm text-muted">{f.label}</dt>
@@ -272,42 +273,64 @@ export default function Site() {
         </section>
 
         {/* Work */}
-        <section className="bg-mist">
+        <section id="work" className="bg-mist">
           <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{t.work.title}</h2>
-            <div className="mt-12 grid gap-6 lg:grid-cols-2">
-              <article className="flex flex-col rounded-3xl bg-padpa-soft p-8">
-                <h3 className="text-2xl font-bold">{t.work.celori.title}</h3>
-                <p className="mt-3 max-w-[48ch] text-[#5b3340]">{t.work.celori.body}</p>
-                <p className="mt-8 text-6xl font-bold tracking-[-0.04em] text-[#8a2a3c]">{t.work.celori.stat}</p>
-                <p className="text-[#5b3340]">{t.work.celori.statLabel}</p>
+            <p className="mt-4 max-w-[60ch] text-lg text-muted">{t.work.lead}</p>
+            {t.work.projects.map((p) => (
+              <article key={p.name} className="mt-12 grid items-center gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
+                {/* Browser frame showing the live site's name and occasions */}
                 <a
-                  href={site.pinterest}
+                  href={p.url}
                   target="_blank"
                   rel="noopener"
-                  className="mt-8 self-start font-semibold text-[#8a2a3c] underline decoration-2 underline-offset-4"
+                  aria-label={p.link}
+                  className="block overflow-hidden rounded-2xl border border-line bg-white shadow-[0_24px_50px_-28px_rgba(26,38,104,0.5)]"
                 >
-                  {t.work.celori.link}
+                  <div className="flex items-center gap-2 border-b border-line bg-mist/60 px-4 py-3">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#f0a4ae]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#f3d08a]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#9fd3b5]" />
+                    <span className="ml-3 truncate rounded-full bg-white px-3 py-1 text-xs text-muted">{p.domain}</span>
+                  </div>
+                  <div className="bg-padpa-soft px-7 py-10 sm:px-10 sm:py-14">
+                    <p className="text-sm font-semibold text-[#8a2a3c]">{p.name}</p>
+                    <p className="mt-2 max-w-[14ch] text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-[#5b1f2c] sm:text-5xl">
+                      Ideas for every celebration
+                    </p>
+                    <div className="mt-8 flex flex-wrap gap-2">
+                      {["Weddings", "Birthdays", "Baby showers", "Anniversaries"].map((o) => (
+                        <span key={o} className="rounded-full bg-white px-3 py-1.5 text-sm font-medium text-[#8a2a3c]">
+                          {o}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </a>
+                <div>
+                  <h3 className="text-2xl font-bold">{p.name}</h3>
+                  <p className="mt-3 max-w-[52ch] text-lg text-muted">{p.summary}</p>
+                  <ul className="mt-6 space-y-3">
+                    {p.points.map((pt) => (
+                      <li key={pt} className="flex gap-3">
+                        <svg aria-hidden className="mt-1 shrink-0 text-leaf" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8">
+                          <path d="m5 12 5 5 9-10" />
+                        </svg>
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener"
+                    className="mt-8 inline-flex rounded-full border border-sapphire px-5 py-3 font-semibold text-sapphire hover:bg-sapphire hover:text-white"
+                  >
+                    {p.link}
+                  </a>
+                </div>
               </article>
-
-              <article className="rounded-3xl border border-line bg-white p-8">
-                <h3 className="text-2xl font-bold">{t.work.audit.title}</h3>
-                <p className="mt-3 text-muted">{t.work.audit.body}</p>
-                <ul className="mt-5 space-y-3">
-                  {t.work.audit.findings.map((f) => (
-                    <li key={f} className="flex gap-3 rounded-xl bg-amber-soft px-4 py-3 text-[#6b3407]">
-                      <svg aria-hidden className="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                        <circle cx="12" cy="12" r="9" />
-                        <path d="M12 7v6M12 16.5v.5" />
-                      </svg>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-6 font-semibold">{t.work.audit.note}</p>
-              </article>
-            </div>
+            ))}
           </div>
         </section>
 

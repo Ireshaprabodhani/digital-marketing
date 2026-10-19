@@ -10,7 +10,7 @@ type Pkg = {
 };
 
 export type Content = {
-  nav: { services: string; packages: string; about: string; faq: string; cta: string };
+  nav: { services: string; work: string; packages: string; about: string; faq: string; cta: string };
   hero: {
     title: string;
     lead: string;
@@ -60,8 +60,15 @@ export type Content = {
   };
   work: {
     title: string;
-    celori: { title: string; body: string; stat: string; statLabel: string; link: string };
-    audit: { title: string; body: string; findings: string[]; note: string };
+    lead: string;
+    projects: {
+      name: string;
+      url: string;
+      domain: string;
+      summary: string;
+      points: string[];
+      link: string;
+    }[];
   };
   faq: { title: string; items: { q: string; a: string }[] };
   contact: {
@@ -79,6 +86,7 @@ export type Content = {
 export const content: Content = {
   nav: {
     services: "Services",
+    work: "Work",
     packages: "Packages",
     about: "About",
     faq: "Questions",
@@ -236,31 +244,28 @@ export const content: Content = {
     ],
     facts: [
       { value: "3 years", label: "building websites and apps" },
-      { value: "3 countries", label: "clients in Sri Lanka, Canada and the UAE" },
       { value: "2 languages", label: "I work in Sinhala and English" },
     ],
   },
   work: {
-    title: "My work",
-    celori: {
-      title: "Celori on Pinterest",
-      body:
-        "My own brand of wedding, birthday, baby shower and anniversary ideas. I plan, design and publish every pin myself.",
-      stat: "157,000",
-      statLabel: "monthly views",
-      link: "Visit Celori",
-    },
-    audit: {
-      title: "Sample audit: a restaurant in Ratnapura",
-      body: "What I found in 15 minutes, using only public information:",
-      findings: [
-        "4.9 star rating on Google, but only 22 reviews",
-        "No Facebook post for three months",
-        "Opening hours missing from Google Maps",
-        "Lots of birthday parties, but no birthday package advertised",
-      ],
-      note: "This is the kind of report you'll get, free.",
-    },
+    title: "Websites I've built",
+    lead: "Every site I build is fast, works well on phones and is set up so Google can find it.",
+    projects: [
+      {
+        name: "Celori",
+        url: "https://hellocelori.com/",
+        domain: "hellocelori.com",
+        summary:
+          "My own website of ideas for weddings, birthdays, baby showers and anniversaries. I designed and built it from scratch, and I grow it through Pinterest.",
+        points: [
+          "Idea pages grouped by occasion, plus a shop and free printables",
+          "Page titles, descriptions and share previews set up for Google and social media",
+          "Linked to the Celori Pinterest page, which gets around 157,000 views a month",
+          "Email sign-up for the free party planning checklist",
+        ],
+        link: "Visit hellocelori.com",
+      },
+    ],
   },
   faq: {
     title: "Common questions",
