@@ -17,7 +17,11 @@ export type Content = {
     findOn: string;
     channels: string[];
     notes: { text: string; sub: string; tone: "coral" | "mint" | "sky" | "sun" }[];
-    marquee: string[];
+    journey: {
+      title: string;
+      lead: string;
+      steps: { label: string; body: string }[];
+    };
     lead: string;
     cta: string;
     ctaMsg: string;
@@ -109,17 +113,16 @@ export const content: Content = {
       { text: "1.4k people reached", sub: "on Facebook", tone: "coral" },
       { text: "Found on Google Maps", sub: "2 km away", tone: "sky" },
     ],
-    marquee: [
-      "Google Maps",
-      "Facebook posts",
-      "Instagram reels",
-      "Websites",
-      "SEO",
-      "Online menus",
-      "Facebook ads",
-      "WhatsApp bookings",
-      "Monthly reports",
-    ],
+    journey: {
+      title: "How a customer finds you today",
+      lead: "Every step has to work. If one is missing, they pick the place down the road.",
+      steps: [
+        { label: "Search", body: "Types \"restaurant near me\" into Google Maps" },
+        { label: "Check", body: "Looks at your photos, hours and reviews" },
+        { label: "Scroll", body: "Sees your latest posts on Facebook or Instagram" },
+        { label: "Message", body: "Taps WhatsApp to book a table" },
+      ],
+    },
     lead:
       "I help restaurants, salons and local shops in Sri Lanka show up on Google Maps, keep their Facebook and Instagram alive, and turn visitors into bookings.",
     cta: "Get a free audit on WhatsApp",

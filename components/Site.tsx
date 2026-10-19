@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { content as t } from "@/lib/content";
 import { site, whatsappLink } from "@/lib/site";
 import ListingDemo from "./ListingDemo";
-import { Marquee, NotificationStack, Typewriter } from "./HeroBits";
+import { Journey, NotificationStack, Typewriter } from "./HeroBits";
 
 // Soft background + icon colour for each service, in order.
 const serviceTones = [
@@ -162,7 +162,7 @@ export default function Site() {
           </div>
         </section>
 
-        <Marquee items={t.hero.marquee} />
+        <Journey journey={t.hero.journey} />
 
         {/* Problems */}
         <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
