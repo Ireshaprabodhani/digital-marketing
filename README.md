@@ -1,6 +1,6 @@
 # Iresha Digital – portfolio site
 
-A one-page site for my digital marketing and website services for Sri Lankan businesses. It works in English and Sinhala (toggle in the header), and every call to action opens WhatsApp with a ready-made message.
+A one-page site for my digital marketing and website services for Sri Lankan businesses. Every call to action opens WhatsApp with a ready-made message.
 
 Built with Next.js 15, TypeScript and Tailwind CSS 4, exported as a static site.
 
@@ -16,7 +16,7 @@ npm run dev        # http://localhost:3000
 | What | File |
 |---|---|
 | Brand name, WhatsApp number, phone, email, social links | `lib/site.ts` |
-| All page text, in English and Sinhala | `lib/content.ts` |
+| All page text | `lib/content.ts` |
 | Page layout and sections | `components/Site.tsx` |
 | Before/after Google listing in the hero | `components/ListingDemo.tsx` |
 | Colours and fonts | `app/globals.css` |

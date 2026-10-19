@@ -1,33 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { content, type Lang } from "@/lib/content";
+import { useState } from "react";
+import { content as t } from "@/lib/content";
 import { site, whatsappLink } from "@/lib/site";
 import ListingDemo from "./ListingDemo";
 
-const STORAGE_KEY = "lang";
-
 export default function Site() {
-  const [lang, setLang] = useState<Lang>("en");
   const [menuOpen, setMenuOpen] = useState(false);
-  const t = content[lang];
-
-  // Remember the visitor's language choice (best effort only).
-  useEffect(() => {
-    try {
-      const saved = window.localStorage.getItem(STORAGE_KEY);
-      if (saved === "si" || saved === "en") setLang(saved);
-    } catch {}
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.lang = lang;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, lang);
-    } catch {}
-  }, [lang]);
-
-  const switchLang = () => setLang(lang === "en" ? "si" : "en");
 
   const nav = [
     { href: "#services", label: t.nav.services },
@@ -62,14 +41,6 @@ export default function Site() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={switchLang}
-              className="rounded-full border border-white/30 px-3 py-1.5 text-sm font-semibold hover:bg-white/10"
-              aria-label={lang === "en" ? "Switch to Sinhala" : "Switch to English"}
-            >
-              {t.langLabel}
-            </button>
             <a
               href={whatsappLink(t.hero.ctaMsg)}
               target="_blank"
@@ -129,7 +100,7 @@ export default function Site() {
               <p className="mt-4 text-sm text-white/70">{t.hero.reassure}</p>
             </div>
             <div className="flex justify-center md:justify-end">
-              <ListingDemo key={lang} t={t.listing} />
+              <ListingDemo t={t.listing} />
             </div>
           </div>
         </section>

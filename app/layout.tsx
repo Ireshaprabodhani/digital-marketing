@@ -1,8 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/bricolage-grotesque";
-import "@fontsource/noto-sans-sinhala/400.css";
-import "@fontsource/noto-sans-sinhala/600.css";
-import "@fontsource/noto-sans-sinhala/700.css";
 import "./globals.css";
 import { site } from "@/lib/site";
 
