@@ -12,6 +12,7 @@ type Pkg = {
 export type Content = {
   nav: { services: string; work: string; packages: string; about: string; faq: string; cta: string };
   hero: {
+    badge: string;
     title: string;
     findOn: string;
     channels: string[];
@@ -29,8 +30,9 @@ export type Content = {
     after: string;
     name: string;
     kind: string;
-    reviewsBefore: string;
-    reviewsAfter: string;
+    reviewsBefore: number;
+    reviewsAfter: number;
+    reviewsWord: string;
     hoursMissing: string;
     hoursOk: string;
     noPhotos: string;
@@ -97,6 +99,7 @@ export const content: Content = {
     cta: "Free audit",
   },
   hero: {
+    badge: "Digital marketing for Sri Lankan businesses",
     title: "People are already searching for your business.",
     findOn: "Let them find you on",
     channels: ["Google Maps", "Facebook", "Instagram", "WhatsApp", "TikTok"],
@@ -130,8 +133,9 @@ export const content: Content = {
     after: "After",
     name: "Hela Rasa Kitchen",
     kind: "Restaurant · Ratnapura",
-    reviewsBefore: "9 reviews",
-    reviewsAfter: "64 reviews",
+    reviewsBefore: 9,
+    reviewsAfter: 64,
+    reviewsWord: "reviews",
     hoursMissing: "Opening hours not added",
     hoursOk: "Open now · Closes 10 pm",
     noPhotos: "No photos from the owner",

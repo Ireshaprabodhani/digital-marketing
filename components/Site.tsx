@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { content as t } from "@/lib/content";
 import { site, whatsappLink } from "@/lib/site";
 import ListingDemo from "./ListingDemo";
-import { Marquee, Notifications, RotatingWord } from "./HeroBits";
+import { Marquee, NotificationStack, Typewriter } from "./HeroBits";
 
 // Soft background + icon colour for each service, in order.
 const serviceTones = [
@@ -16,10 +16,10 @@ const serviceTones = [
   { bg: "bg-lilac", icon: "bg-ink text-white" },
 ];
 
-const stepTones = ["bg-sun text-ink", "bg-coral text-white", "bg-mint text-ink"];
-
 export default function Site() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [live, setLive] = useState(false);
+  const onListingChange = useCallback((after: boolean) => setLive(after), []);
 
   // Reveal sections as they scroll into view.
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function Site() {
       </a>
 
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-sun/90 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-ink/85 text-white backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
           <a href="#top" className="flex items-center gap-2.5 text-lg font-extrabold tracking-tight">
             <Logo />
@@ -70,7 +70,7 @@ export default function Site() {
 
           <nav aria-label="Main" className="hidden items-center gap-7 text-sm font-semibold md:flex">
             {nav.map((n) => (
-              <a key={n.href} href={n.href} className="text-ink/75 hover:text-ink">
+              <a key={n.href} href={n.href} className="text-white/70 transition-colors hover:text-white">
                 {n.label}
               </a>
             ))}
@@ -81,13 +81,13 @@ export default function Site() {
               href={whatsappLink(t.hero.ctaMsg)}
               target="_blank"
               rel="noopener"
-              className="hidden rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-grape sm:inline-flex"
+              className="hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-sun sm:inline-flex"
             >
               {t.nav.cta}
             </a>
             <button
               type="button"
-              className="rounded-full p-2 hover:bg-ink/10 md:hidden"
+              className="rounded-full p-2 hover:bg-white/10 md:hidden"
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
               aria-label="Menu"
@@ -100,13 +100,13 @@ export default function Site() {
           </div>
         </div>
         {menuOpen && (
-          <nav id="mobile-nav" aria-label="Mobile" className="border-t border-ink/10 px-4 pb-4 md:hidden">
+          <nav id="mobile-nav" aria-label="Mobile" className="border-t border-white/10 px-4 pb-4 md:hidden">
             {nav.map((n) => (
               <a
                 key={n.href}
                 href={n.href}
                 onClick={() => setMenuOpen(false)}
-                className="block border-b border-ink/10 py-3 font-semibold"
+                className="block border-b border-white/10 py-3 font-semibold"
               >
                 {n.label}
               </a>
@@ -117,39 +117,47 @@ export default function Site() {
 
       <main id="main">
         {/* Hero */}
-        <section id="top" className="relative overflow-hidden bg-sun">
-          <Shapes />
-          <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-20 pt-10 sm:px-6 md:pt-16 lg:grid-cols-[1.1fr_1fr] lg:pb-28">
+        <section id="top" className="relative overflow-hidden bg-ink text-white">
+          <HeroGlow />
+          <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-20 pt-12 sm:px-6 md:pt-20 lg:grid-cols-[1.1fr_1fr] lg:pb-28">
             <div>
-              <h1 className="text-[2.5rem] font-extrabold leading-[1.02] tracking-[-0.035em] sm:text-6xl lg:text-[4.25rem]">
-                <span className="animate-pop block" style={{ animationDelay: "50ms" }}>
-                  {t.hero.title}
+              <p className="animate-pop inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium text-white/85 ring-1 ring-white/15">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
                 </span>
-                <span className="animate-pop mt-3 block" style={{ animationDelay: "250ms" }}>
-                  {t.hero.findOn} <RotatingWord words={t.hero.channels} />
-                </span>
+                {t.hero.badge}
+              </p>
+              <h1
+                className="animate-pop mt-6 max-w-[15ch] text-[2.4rem] font-extrabold leading-[1.04] tracking-[-0.035em] sm:text-6xl"
+                style={{ animationDelay: "120ms" }}
+              >
+                {t.hero.title}
               </h1>
-              <p className="animate-pop mt-7 max-w-[50ch] text-lg text-ink/80" style={{ animationDelay: "450ms" }}>
+              <p className="animate-pop mt-5 text-xl font-semibold text-white/85 sm:text-2xl" style={{ animationDelay: "260ms" }}>
+                {t.hero.findOn} <Typewriter words={t.hero.channels} />
+              </p>
+              <p className="animate-pop mt-6 max-w-[50ch] text-lg text-white/70" style={{ animationDelay: "380ms" }}>
                 {t.hero.lead}
               </p>
               <div
                 className="animate-pop mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-                style={{ animationDelay: "600ms" }}
+                style={{ animationDelay: "500ms" }}
               >
                 <WhatsAppButton href={whatsappLink(t.hero.ctaMsg)} label={t.hero.cta} />
                 <a
                   href="#packages"
-                  className="inline-flex justify-center rounded-full border-2 border-ink px-6 py-3 font-bold transition-colors hover:bg-ink hover:text-white"
+                  className="inline-flex justify-center rounded-full border border-white/30 px-6 py-3.5 font-bold transition-colors hover:border-white hover:bg-white hover:text-ink"
                 >
                   {t.hero.secondary}
                 </a>
               </div>
-              <p className="mt-4 text-sm text-ink/70">{t.hero.reassure}</p>
+              <p className="mt-4 text-sm text-white/55">{t.hero.reassure}</p>
             </div>
 
-            <div className="relative flex justify-center px-2 lg:justify-end lg:px-10">
-              <Notifications notes={t.hero.notes} />
-              <ListingDemo t={t.listing} />
+            <div className="relative flex justify-center lg:justify-start lg:pl-6">
+              <NotificationStack notes={t.hero.notes} active={live} />
+              <ListingDemo t={t.listing} onChange={onListingChange} />
             </div>
           </div>
         </section>
@@ -186,54 +194,37 @@ export default function Site() {
         </section>
 
         {/* Process */}
-        <section className="relative overflow-hidden bg-grape text-white">
-          <div aria-hidden className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-grape-deep" />
-          <div aria-hidden className="absolute -bottom-20 left-1/3 h-48 w-48 rounded-full border-[18px] border-white/10" />
-          <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-            <h2 className="reveal text-3xl font-extrabold tracking-tight sm:text-5xl">{t.process.title}</h2>
-            <ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
-              {t.process.steps.map((s, i) => (
-                <li key={s.title} className="reveal" style={{ ["--delay" as string]: `${i * 150}ms` }}>
-                  <div className="flex items-center gap-4">
-                    <span
-                      className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-2xl font-extrabold ${stepTones[i]} ${
-                        i % 2 ? "rotate-3" : "-rotate-3"
-                      }`}
-                    >
-                      {i + 1}
-                    </span>
-                    {i < t.process.steps.length - 1 && (
-                      <span aria-hidden className="hidden h-0 flex-1 border-t-2 border-dashed border-white/40 md:block" />
-                    )}
-                  </div>
-                  <h3 className="mt-6 text-xl font-bold">{s.title}</h3>
-                  <p className="mt-2 max-w-[38ch] text-white/80">{s.body}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
+        <ProcessSection />
 
         {/* Services */}
         <section id="services" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
           <h2 className="reveal text-3xl font-extrabold tracking-tight sm:text-5xl">{t.services.title}</h2>
           <p className="reveal mt-4 max-w-[60ch] text-lg text-muted">{t.services.lead}</p>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" onMouseMove={trackSpotlight}>
             {t.services.items.map((s, i) => {
               const tone = serviceTones[i % serviceTones.length];
               return (
                 <div
                   key={s.title}
-                  className={`reveal group rounded-3xl p-7 transition-transform duration-300 hover:-translate-y-1.5 hover:rotate-[-0.6deg] ${tone.bg}`}
+                  data-spot
+                  className={`reveal group relative overflow-hidden rounded-3xl p-7 transition-transform duration-300 hover:-translate-y-1 ${tone.bg}`}
                   style={{ ["--delay" as string]: `${(i % 3) * 100}ms` }}
                 >
                   <span
-                    className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${tone.icon}`}
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.85), transparent 65%)",
+                    }}
+                  />
+                  <span
+                    className={`relative flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110 ${tone.icon}`}
                   >
                     <ServiceIcon index={i} />
                   </span>
-                  <h3 className="mt-5 text-lg font-bold">{s.title}</h3>
-                  <p className="mt-2 text-ink/70">{s.body}</p>
+                  <h3 className="relative mt-5 text-lg font-bold">{s.title}</h3>
+                  <p className="relative mt-2 text-ink/70">{s.body}</p>
                 </div>
               );
             })}
@@ -316,7 +307,7 @@ export default function Site() {
           <div className="grid items-center gap-12 md:grid-cols-[auto_1fr] md:gap-16">
             {/* Replace with a real photo: put it in /public/iresha.jpg and swap the initials for an <img>. */}
             <div className="reveal relative mx-auto h-48 w-48 md:h-64 md:w-64">
-              <div aria-hidden className="animate-spin-slow absolute -inset-3 rounded-full border-[3px] border-dashed border-coral" />
+              <div aria-hidden className="absolute -inset-3 rounded-full border-[3px] border-dashed border-coral" />
               <div aria-hidden className="absolute -right-2 top-2 h-10 w-10 rounded-full bg-sun" />
               <div aria-hidden className="absolute -left-1 bottom-4 h-7 w-7 rotate-12 rounded-lg bg-sky" />
               <div
@@ -438,17 +429,7 @@ export default function Site() {
 
         {/* Contact */}
         <section id="contact" className="relative overflow-hidden bg-ink text-white">
-          <div aria-hidden className="animate-float absolute right-[8%] top-12 h-24 w-24 rounded-full bg-coral" />
-          <div
-            aria-hidden
-            className="animate-float absolute bottom-16 right-[24%] h-14 w-14 rounded-2xl bg-sun [--tilt:12deg]"
-            style={{ animationDelay: "1.5s" }}
-          />
-          <div
-            aria-hidden
-            className="animate-float absolute bottom-24 right-[4%] h-10 w-10 rounded-full bg-sky"
-            style={{ animationDelay: "0.7s" }}
-          />
+          <HeroGlow />
           <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
             <h2 className="reveal max-w-[18ch] text-3xl font-extrabold tracking-tight sm:text-6xl">{t.contact.title}</h2>
             <p className="reveal mt-5 max-w-[52ch] text-lg text-white/75">{t.contact.body}</p>
@@ -501,27 +482,116 @@ export default function Site() {
   );
 }
 
-// Decorative shapes drifting in the hero background.
-function Shapes() {
+// Soft colour glows and a faint dot grid behind dark sections.
+function HeroGlow() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0">
-      <div className="animate-float absolute -left-10 top-24 h-28 w-28 rounded-full bg-coral/90" />
+      <div className="absolute -right-32 -top-40 h-[520px] w-[520px] rounded-full bg-grape opacity-50 blur-[120px]" />
+      <div className="absolute -bottom-48 -left-24 h-[420px] w-[420px] rounded-full bg-coral opacity-25 blur-[120px]" />
+      <div className="absolute bottom-0 right-1/4 h-[260px] w-[260px] rounded-full bg-sky opacity-20 blur-[100px]" />
       <div
-        className="animate-float absolute right-[46%] top-8 hidden h-10 w-10 rounded-xl bg-grape lg:block [--tilt:18deg]"
-        style={{ animationDelay: "1s" }}
+        className="absolute inset-0 opacity-[0.18]"
+        style={{
+          backgroundImage: "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
+          backgroundSize: "26px 26px",
+          maskImage: "radial-gradient(ellipse at 70% 40%, black, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(ellipse at 70% 40%, black, transparent 75%)",
+        }}
       />
-      <div
-        className="animate-float absolute bottom-10 left-[42%] h-16 w-16 rounded-full border-[10px] border-sky"
-        style={{ animationDelay: "2s" }}
-      />
-      <svg
-        className="animate-spin-slow absolute -right-16 -top-16 h-64 w-64 text-white/60"
-        viewBox="0 0 100 100"
-        fill="currentColor"
-      >
-        <path d="M50 0 58 36 94 22 66 48 100 62 62 64 70 100 50 70 30 100 38 64 0 62 34 48 6 22 42 36z" />
-      </svg>
     </div>
+  );
+}
+
+// Moves the light under the mouse inside whichever service tile it's over.
+function trackSpotlight(e: React.MouseEvent<HTMLElement>) {
+  const tile = (e.target as HTMLElement).closest<HTMLElement>("[data-spot]");
+  if (!tile) return;
+  const r = tile.getBoundingClientRect();
+  tile.style.setProperty("--mx", `${e.clientX - r.left}px`);
+  tile.style.setProperty("--my", `${e.clientY - r.top}px`);
+}
+
+const stepTones = ["bg-sun text-ink", "bg-coral text-white", "bg-mint text-ink"];
+
+// "How we start": a line fills from step 1 to 3 as you scroll through,
+// and each number lights up when the line reaches it.
+function ProcessSection() {
+  const ref = useRef<HTMLElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setProgress(1);
+      return;
+    }
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const p = (vh * 0.85 - r.top) / (r.height * 0.75);
+      setProgress(Math.max(0, Math.min(1, p)));
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  const steps = t.process.steps;
+  return (
+    <section ref={ref} className="relative overflow-hidden bg-grape text-white">
+      <div aria-hidden className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-grape-deep" />
+      <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+        <h2 className="reveal text-3xl font-extrabold tracking-tight sm:text-5xl">{t.process.title}</h2>
+        <div className="relative mt-14">
+          {/* Track and fill: horizontal on desktop, vertical on mobile */}
+          <div aria-hidden className="absolute left-7 right-[calc((100%_-_4rem)/3_-_1.75rem)] top-7 hidden h-1 rounded-full bg-white/15 md:block">
+            <div
+              className="h-full origin-left rounded-full bg-gradient-to-r from-sun via-coral to-mint"
+              style={{ transform: `scaleX(${progress})` }}
+            />
+          </div>
+          <div aria-hidden className="absolute bottom-10 left-7 top-7 w-1 rounded-full bg-white/15 md:hidden">
+            <div
+              className="w-full origin-top rounded-full bg-gradient-to-b from-sun via-coral to-mint"
+              style={{ height: "100%", transform: `scaleY(${progress})` }}
+            />
+          </div>
+          <ol className="relative grid gap-12 md:grid-cols-3 md:gap-8">
+            {steps.map((s, i) => {
+              const on = progress >= (steps.length > 1 ? i / (steps.length - 1) : 0) - 0.02;
+              return (
+                <li key={s.title} className="relative pl-20 md:pl-0">
+                  <span
+                    className={`absolute left-0 flex h-14 w-14 items-center justify-center rounded-2xl text-2xl font-extrabold transition-all duration-500 md:static ${
+                      on ? `${stepTones[i]} scale-100 shadow-[0_0_0_6px_rgba(255,255,255,0.12)]` : "scale-90 bg-grape-deep text-white/50"
+                    }`}
+                  >
+                    {i + 1}
+                  </span>
+                  <h3 className={`text-xl font-bold transition-opacity duration-500 md:mt-6 ${on ? "opacity-100" : "opacity-60"}`}>
+                    {s.title}
+                  </h3>
+                  <p className={`mt-2 max-w-[38ch] transition-opacity duration-500 ${on ? "text-white/85" : "text-white/50"}`}>
+                    {s.body}
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -567,7 +637,7 @@ function Check({ className = "" }: { className?: string }) {
 
 function Logo() {
   return (
-    <span aria-hidden className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-ink">
+    <span aria-hidden className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-grape">
       <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-coral" />
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffd23f" strokeWidth="3" strokeLinecap="round">
         <path d="M4 18 10 11l4 4 6-8" />

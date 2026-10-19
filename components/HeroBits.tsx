@@ -3,66 +3,104 @@
 import { useEffect, useState } from "react";
 import type { Content } from "@/lib/content";
 
-// Each channel name gets its own colour as it rotates in.
-const wordColours = ["bg-grape", "bg-coral", "bg-sky", "bg-mint-deep", "bg-ink"];
+// Each channel is typed out in its own colour, then erased for the next.
+const wordColours = ["text-sky", "text-coral", "text-[#ff8fd8]", "text-mint", "text-sun"];
 
-export function RotatingWord({ words }: { words: string[] }) {
-  const [i, setI] = useState(0);
+export function Typewriter({ words }: { words: string[] }) {
+  const [index, setIndex] = useState(0);
+  const [text, setText] = useState(words[0]);
+  const [phase, setPhase] = useState<"hold" | "erase" | "type">("hold");
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setInterval(() => setI((n) => (n + 1) % words.length), 2200);
-    return () => window.clearInterval(id);
-  }, [words.length]);
+    const word = words[index];
+    let id: number;
+    if (phase === "hold") {
+      id = window.setTimeout(() => setPhase("erase"), 1600);
+    } else if (phase === "erase") {
+      if (text.length === 0) {
+        setIndex((i) => (i + 1) % words.length);
+        setPhase("type");
+        return;
+      }
+      id = window.setTimeout(() => setText(text.slice(0, -1)), 35);
+    } else {
+      const next = words[index];
+      if (text === next) {
+        setPhase("hold");
+        return;
+      }
+      id = window.setTimeout(() => setText(next.slice(0, text.length + 1)), 75);
+    }
+    void word;
+    return () => window.clearTimeout(id);
+  }, [phase, text, index, words]);
 
   return (
-    <span className="inline-block overflow-hidden pb-1 align-bottom" aria-live="polite">
-      <span
-        key={i}
-        className={`animate-word inline-block rounded-2xl px-3 py-0.5 text-white sm:rounded-3xl sm:px-4 ${
-          wordColours[i % wordColours.length]
-        }`}
-      >
-        {words[i]}
+    <span className="whitespace-nowrap">
+      <span className="sr-only">{words.join(", ")}</span>
+      <span aria-hidden className={`font-extrabold ${wordColours[index % wordColours.length]}`}>
+        {text}
       </span>
+      <span aria-hidden className="ml-0.5 inline-block h-[1em] w-[3px] translate-y-[0.15em] animate-pulse rounded bg-white/80" />
     </span>
   );
 }
 
 const toneStyles: Record<Content["hero"]["notes"][number]["tone"], { dot: string; icon: string }> = {
-  sun: { dot: "bg-sun", icon: "★" },
-  mint: { dot: "bg-mint", icon: "✓" },
-  coral: { dot: "bg-coral", icon: "♥" },
-  sky: { dot: "bg-sky", icon: "⌖" },
+  sun: { dot: "bg-sun text-ink", icon: "★" },
+  mint: { dot: "bg-mint text-ink", icon: "✓" },
+  coral: { dot: "bg-coral text-white", icon: "♥" },
+  sky: { dot: "bg-sky text-ink", icon: "⌖" },
 };
 
-// Floating "phone notification" bubbles placed around the listing card.
-const positions = [
-  "left-0 top-24 [--tilt:-4deg]",
-  "right-0 top-12 translate-x-1/3 [--tilt:3deg]",
-  "left-0 -bottom-2 [--tilt:2deg]",
-  "right-0 top-56 translate-x-1/3 [--tilt:-3deg]",
-];
+const SLOT = 68; // px between stacked notifications
+const VISIBLE = 3;
 
-export function Notifications({ notes }: { notes: Content["hero"]["notes"] }) {
+// Phone-style notifications that arrive one by one while the listing is
+// in its "after" state, stacking up like a real lock screen.
+export function NotificationStack({ notes, active }: { notes: Content["hero"]["notes"]; active: boolean }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!active) {
+      setCount(0);
+      return;
+    }
+    const first = window.setTimeout(() => setCount(1), 900);
+    const id = window.setInterval(() => setCount((c) => c + 1), 2300);
+    return () => {
+      window.clearTimeout(first);
+      window.clearInterval(id);
+    };
+  }, [active]);
+
+  // Newest first; keep one extra so the oldest can fade out smoothly.
+  const items = Array.from({ length: Math.min(count, VISIBLE + 1) }, (_, slot) => {
+    const seq = count - 1 - slot;
+    return { seq, slot, note: notes[seq % notes.length] };
+  });
+
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 z-10 hidden lg:block">
-      {notes.map((n, i) => (
-        <div key={n.text} className={`absolute ${positions[i % positions.length]}`}>
-          <div className="animate-pop" style={{ animationDelay: `${1900 + i * 350}ms` }}>
-            <div className="animate-float" style={{ animationDelay: `${i * 0.8}s` }}>
-              <div className="flex items-center gap-3 rounded-2xl bg-white px-3.5 py-2.5 shadow-[0_14px_30px_-12px_rgba(27,21,48,0.35)]">
-                <span
-                  className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-ink ${toneStyles[n.tone].dot}`}
-                >
-                  {toneStyles[n.tone].icon}
-                </span>
-                <span className="leading-tight">
-                  <span className="block text-sm font-bold text-ink">{n.text}</span>
-                  <span className="block text-xs text-muted">{n.sub}</span>
-                </span>
-              </div>
-            </div>
+    <div aria-hidden className="pointer-events-none absolute -right-6 top-14 z-20 hidden h-[230px] w-[250px] lg:block xl:-right-16">
+      {items.map(({ seq, slot, note }) => (
+        <div
+          key={seq}
+          className="absolute inset-x-0 top-0 transition-[transform,opacity] duration-500 ease-[cubic-bezier(.2,.9,.3,1)]"
+          style={{
+            transform: `translateY(${slot * SLOT}px) scale(${1 - slot * 0.04})`,
+            opacity: slot >= VISIBLE ? 0 : 1 - slot * 0.18,
+          }}
+        >
+          <div className="animate-notif flex items-center gap-3 rounded-2xl bg-white/95 px-3.5 py-2.5 shadow-[0_16px_32px_-14px_rgba(0,0,0,0.6)] ring-1 ring-black/5 backdrop-blur">
+            <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${toneStyles[note.tone].dot}`}>
+              {toneStyles[note.tone].icon}
+            </span>
+            <span className="min-w-0 leading-tight">
+              <span className="block truncate text-sm font-bold text-ink">{note.text}</span>
+              <span className="block text-xs text-muted">{note.sub}</span>
+            </span>
+            <span className="ml-auto self-start text-[10px] text-muted">now</span>
           </div>
         </div>
       ))}
@@ -76,14 +114,12 @@ export function Marquee({ items }: { items: string[] }) {
   // The list is rendered twice so the strip loops without a gap.
   const loop = [...items, ...items];
   return (
-    <div className="overflow-hidden bg-ink py-4" aria-label={items.join(", ")}>
+    <div className="overflow-hidden border-y border-grape-soft bg-lilac py-4" aria-label={items.join(", ")}>
       <div className="animate-marquee flex w-max gap-3 hover:[animation-play-state:paused]" aria-hidden>
         {loop.map((item, i) => (
           <span
             key={i}
-            className={`whitespace-nowrap rounded-full px-5 py-2 text-base font-bold sm:text-lg ${
-              pillColours[i % pillColours.length]
-            }`}
+            className={`whitespace-nowrap rounded-full px-5 py-2 text-base font-bold ${pillColours[i % pillColours.length]}`}
           >
             {item}
           </span>
