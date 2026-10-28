@@ -187,30 +187,19 @@ export const content: Content = {
     lead: "Pick one service or combine them. Everything is explained in plain Sinhala or English.",
     items: [
       {
-        title: "Google Maps profile",
-        body: "Hours, photos, menu, WhatsApp link and a steady flow of new reviews.",
-      },
-      {
-        title: "Facebook and Instagram posts",
-        body: "Regular posts about your food, offers and events, designed to match your brand.",
-      },
-      {
-        title: "Reels and short videos",
-        body: "Short videos that show your place and dishes, without TikTok watermarks.",
-      },
-      {
-        title: "Websites and online menus",
+        title: "Google Business Profile",
         body:
-          "A fast website with your menu, offers, location and booking, built properly by software engineers.",
+          "Get found on Google Maps when people search nearby. We set up and look after your profile: opening hours, photos, menu, posts, a WhatsApp button and a steady flow of new reviews.",
       },
       {
-        title: "Facebook and Instagram ads",
-        body: "Ads aimed at people near you, with clear reports on what you got for the money.",
-      },
-      {
-        title: "Pinterest for events and tourism",
+        title: "Website development and SEO",
         body:
-          "For wedding, birthday and travel businesses that want to reach customers from abroad.",
+          "A fast, mobile-friendly website with your menu, offers, gallery and bookings, built by software engineers and set up to show on Google for searches like \"restaurant near me\".",
+      },
+      {
+        title: "Social media management",
+        body:
+          "Facebook, Instagram and TikTok handled for you: designed posts, short videos, daily specials, replies to comments and ads aimed at people near you, with a simple monthly report.",
       },
     ],
   },

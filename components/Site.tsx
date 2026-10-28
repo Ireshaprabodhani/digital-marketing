@@ -9,11 +9,8 @@ import { Journey, NotificationStack, Typewriter } from "./HeroBits";
 // Soft background + icon colour for each service, in order.
 const serviceTones = [
   { bg: "bg-sky-soft", icon: "bg-sky text-ink" },
-  { bg: "bg-coral-soft", icon: "bg-coral text-white" },
-  { bg: "bg-sun-soft", icon: "bg-sun text-ink" },
   { bg: "bg-grape-soft", icon: "bg-grape text-white" },
-  { bg: "bg-mint-soft", icon: "bg-mint text-ink" },
-  { bg: "bg-lilac", icon: "bg-ink text-white" },
+  { bg: "bg-coral-soft", icon: "bg-coral text-white" },
 ];
 
 export default function Site() {
@@ -702,21 +699,21 @@ function ServiceIcon({ index }: { index: number }) {
           <circle cx="12" cy="9.5" r="2.5" />
         </svg>
       );
-    case 1: // post
+    case 2: // post (social media)
       return (
         <svg {...common}>
           <rect x="3" y="3" width="18" height="18" rx="4" />
           <path d="m7 15 3-3 3 3 4-5" />
         </svg>
       );
-    case 2: // play
+    case 3: // play
       return (
         <svg {...common}>
           <rect x="3" y="5" width="18" height="14" rx="3" />
           <path d="m10 9 5 3-5 3z" />
         </svg>
       );
-    case 3: // code window
+    case 1: // code window (websites)
       return (
         <svg {...common}>
           <rect x="2.5" y="4" width="19" height="16" rx="3" />
