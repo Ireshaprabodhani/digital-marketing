@@ -601,10 +601,8 @@ function TeamVisual() {
       <div aria-hidden className="absolute inset-[12%] rounded-full border-2 border-dashed border-grape-soft" />
       <div aria-hidden className="absolute inset-[26%] rounded-full bg-lilac" />
       <div className="absolute inset-[34%] flex flex-col items-center justify-center rounded-[32px] bg-grape text-center text-white shadow-[0_30px_60px_-24px_rgba(74,31,214,0.7)]">
-        <svg aria-hidden width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffd23f" strokeWidth="2.6" strokeLinecap="round">
-          <path d="M4 18 10 11l4 4 6-8" />
-        </svg>
-        <span className="mt-1 px-2 text-xs font-bold leading-tight sm:text-sm">{site.brandName}</span>
+        <PixelMark size={44} />
+        <span className="mt-2 text-lg font-extrabold tracking-tight sm:text-xl">{site.brandName}</span>
       </div>
       {skills.map((s) => (
         <div key={s.label} className={`absolute ${s.pos}`}>
@@ -666,12 +664,21 @@ function Check({ className = "" }: { className?: string }) {
 
 function Logo() {
   return (
-    <span aria-hidden className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-grape">
-      <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-coral" />
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffd23f" strokeWidth="3" strokeLinecap="round">
-        <path d="M4 18 10 11l4 4 6-8" />
-      </svg>
+    <span aria-hidden className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15">
+      <PixelMark size={20} />
     </span>
+  );
+}
+
+// Pixlo's mark: four colourful "pixels", one tilted out of line for a playful touch.
+function PixelMark({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
+      <rect x="2" y="2" width="9" height="9" rx="2.5" fill="#ffd23f" />
+      <rect x="13" y="2" width="9" height="9" rx="2.5" fill="#ff5c7a" />
+      <rect x="2" y="13" width="9" height="9" rx="2.5" fill="#2fa8ff" />
+      <rect x="13.5" y="13.5" width="9" height="9" rx="2.5" fill="#19c48a" transform="rotate(12 18 18)" />
+    </svg>
   );
 }
 

@@ -1,4 +1,4 @@
-# Digital Solutions – portfolio site
+# Pixlo – portfolio site
 
 A one-page site for our digital marketing and website services for Sri Lankan businesses. Every call to action opens WhatsApp with a ready-made message.
 

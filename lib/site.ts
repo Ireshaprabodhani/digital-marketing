@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────────────────────
 
 export const site = {
-  brandName: "Digital Solutions",
+  brandName: "Pixlo",
 
   // WhatsApp number in international format, digits only (94 = Sri Lanka).
   // Example: 0771234567 → "94771234567"
