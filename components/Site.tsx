@@ -256,6 +256,20 @@ export default function Site() {
                   <p className={`mt-1 text-sm ${p.featured ? "text-white/80" : "text-muted"}`}>{p.note}</p>
                   <p className="mt-6 text-4xl font-extrabold tracking-tight">{p.price}</p>
                   <p className={`text-sm ${p.featured ? "text-white/80" : "text-muted"}`}>{p.per}</p>
+                  {p.worth && p.save && (
+                    <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span
+                        className={`whitespace-nowrap rounded-full px-3 py-1 text-xs font-extrabold ${
+                          p.featured ? "bg-sun text-ink" : "bg-mint-soft text-mint-deep"
+                        }`}
+                      >
+                        Save {p.save}
+                      </span>
+                      <span className={`text-xs ${p.featured ? "text-white/70" : "text-muted"}`}>
+                        <span className="line-through">{p.worth}</span> if bought one by one
+                      </span>
+                    </div>
+                  )}
                   <ul className="mt-6 flex-1 space-y-3">
                     {p.items.map((it) => (
                       <li key={it} className="flex gap-3">

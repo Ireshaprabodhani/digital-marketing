@@ -4,6 +4,8 @@ type Pkg = {
   name: string;
   price: string;
   per: string;
+  worth?: string;
+  save?: string;
   note: string;
   items: string[];
   featured?: boolean;
@@ -212,45 +214,53 @@ export const content: Content = {
     list: [
       {
         name: "Starter",
-        price: "Rs. 12,000",
+        price: "Rs. 15,000",
         per: "per month",
+        worth: "Rs. 17,000",
+        save: "Rs. 2,000",
         note: "For businesses getting online for the first time.",
         items: [
-          "8 posts and 2 reels a month",
-          "Google Maps profile kept up to date",
+          "8 posts and 1 reel a month",
+          "Google Business Profile kept up to date",
           "Replies to comments and messages",
         ],
       },
       {
         name: "Growth",
-        price: "Rs. 20,000",
+        price: "Rs. 28,000",
         per: "per month",
-        note: "For restaurants and salons that want more bookings.",
+        worth: "Rs. 33,000",
+        save: "Rs. 5,000",
+        note: "For restaurants, hotels and salons that want more bookings.",
         featured: true,
         items: [
-          "12 posts and 4 reels a month",
+          "12 posts and 3 reels a month",
           "Google review campaign with table QR cards",
-          "One special campaign a month, like a birthday package",
+          "One special campaign a month, like a birthday or wedding package",
           "Monthly report with real numbers",
         ],
       },
       {
         name: "Full service",
-        price: "Rs. 35,000",
+        price: "Rs. 45,000",
         per: "per month",
+        worth: "Rs. 54,000",
+        save: "Rs. 9,000",
         note: "For businesses ready to run ads and grow quickly.",
         items: [
+          "16 posts and 6 reels a month",
           "Everything in Growth",
           "Facebook and Instagram ad management",
           "TikTok posting",
-          "One photo shoot a month",
         ],
       },
     ],
-    extrasTitle: "One-time work",
+    extrasTitle: "Single items and one-time work",
     extras: [
+      { label: "One designed post (Facebook or Instagram)", value: "Rs. 1,500" },
+      { label: "One reel (short video, edited)", value: "Rs. 5,000" },
       { label: "Website with menu and booking", value: "from Rs. 35,000" },
-      { label: "Google Maps profile setup", value: "Free with any package" },
+      { label: "Google Business Profile setup", value: "Free with any package" },
       { label: "Domain and hosting", value: "about Rs. 12,000 a year" },
     ],
     adsNote:
