@@ -10,7 +10,7 @@ export const site = {
   whatsapp: "94701412006",
   // How the phone number is shown on the page
   phoneDisplay: "070 141 2006",
-  email: "hello@example.com",
+  email: "ireshabandara618@gmail.com",
 
   facebook: "https://facebook.com/",
   instagram: "https://instagram.com/",
