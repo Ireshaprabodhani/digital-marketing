@@ -7,9 +7,9 @@ export const site = {
 
   // WhatsApp number in international format, digits only (94 = Sri Lanka).
   // Example: 0771234567 → "94771234567"
-  whatsapp: "94700000000",
+  whatsapp: "94701412006",
   // How the phone number is shown on the page
-  phoneDisplay: "070 000 0000",
+  phoneDisplay: "070 141 2006",
   email: "hello@example.com",
 
   facebook: "https://facebook.com/",
